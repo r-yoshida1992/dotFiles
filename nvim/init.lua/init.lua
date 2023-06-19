@@ -49,6 +49,9 @@ vim.api.nvim_set_keymap("n", "gi", "<Plug>(coc-implementation)", { silent = true
 -- gr を押すとカーソル下の参照箇所にジャンプします（coc.nvimプラグイン）
 vim.api.nvim_set_keymap("n", "gr", "<Plug>(coc-references)", { silent = true })
 
+-- f を押すとフォーマットをかけます
+vim.api.nvim_set_keymap("n", "f", ":Prettier<CR>", {})
+
 -- functions
 -- git管理されていれば:GFiles、そうでなければ:Filesを実行する
 function SearchFzf()
@@ -72,6 +75,7 @@ require('packer').startup(function()
   use 'junegunn/fzf.vim'                    -- fzf.vimプラグインを追加する（fzfのVimインターフェース）
   use 'rust-lang/rust.vim'                  -- rust.vimプラグインを追加する（Rust言語のサポート）
   use { 'neoclide/coc.nvim', branch = 'release' }  -- coc.nvimプラグインを追加する（補完やコード分析のためのVimプラグイン）
+  use { 'neoclide/coc-java', branch = 'release' } -- coc-javaの導入
   use 'lewis6991/gitsigns.nvim'             -- gitsigns.nvimプラグインを追加する（Gitの変更を表示する）
   use { 'prettier/vim-prettier', run = 'yarn install --frozen-lockfile --production', branch = 'release/0.x' }  -- vim-prettierプラグインを追加する（PrettierのVimインテグレーション）
 end)
