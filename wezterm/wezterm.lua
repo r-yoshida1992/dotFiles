@@ -4,8 +4,20 @@ local config = {}
 
 config.color_scheme = 'UnderTheSea'
 config.window_background_opacity = 0.9
-config.font_size = 14.0
+config.font_size = 13.0
 -- config.font = wezterm.font('Ricty for Powerline', { weight = 'regular', italic = false })
+config.window_background_gradient = {
+  orientation = 'Vertical',
+  colors = {'#000000', '#002222', '#003344'},
+}
+
+-- config.colors = {
+--   cursor_fg = '#000000',
+--   cursor_bg = '#c0c0c0',
+--   -- base setting
+--   foreground = '#00ff00',
+--   background = '#000000',
+-- }
 
 
 wezterm.on('update-right-status', function(window, pane)
