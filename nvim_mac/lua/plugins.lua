@@ -16,8 +16,6 @@ require("packer").startup(function()
 	use("junegunn/fzf.vim")
 	-- rust.vimプラグインを追加する（Rust言語のサポート）
 	use("rust-lang/rust.vim")
-	-- coc.nvimプラグインを追加する（補完やコード分析のためのVimプラグイン）
-	use({ "neoclide/coc.nvim", branch = "release" })
 	-- gitsigns.nvimプラグインを追加する（Gitの変更を表示する）
 	use("lewis6991/gitsigns.nvim")
 	-- vim-prettierプラグインを追加する（PrettierのVimインテグレーション）
@@ -36,8 +34,6 @@ require("packer").startup(function()
 	use({ "nvim-lua/plenary.nvim" })
 	-- telescope.nvimプラグインを追加する（拡張性の高いファジーファインダー）
 	use({ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } })
-	-- nerdcommenterプラグインを追加する（コメントアウトを簡単にする）
-	-- use { 'preservim/nerdcommenter' }
 	-- vim-commentaryプラグインを追加する（コメントアウトを簡単にする）
 	use({ "tpope/vim-commentary" })
 	-- vim-polyglotプラグインを追加する（多言語のサポート）
@@ -47,6 +43,16 @@ require("packer").startup(function()
 	-- stylua-nvimプラグインを追加する（Luaのコードフォーマッター）
 	use({ "ckipp01/stylua-nvim", run = "cargo install stylua" })
 	-- 日本語化プラグインを追加する
-	use { 'vim-jp/vimdoc-ja' }
-  
+	use({ "vim-jp/vimdoc-ja" })
+	-- formatter
+	use({ "mhartington/formatter.nvim" })
+
+	-- Language Server Protocol
+	use({ "neovim/nvim-lspconfig" })
+	use({ "williamboman/mason.nvim" })
+	use({ "williamboman/mason-lspconfig.nvim" })
+	use({ "hrsh7th/nvim-cmp" })
+	use({ "hrsh7th/cmp-nvim-lsp" })
+	use({ "hrsh7th/vim-vsnip" })
+
 end)
