@@ -1,10 +1,11 @@
 require("packer").startup(function()
 	-- packer.nvimプラグインを追加する（プラグマネージャー）
 	use("wbthomason/packer.nvim")
-	-- vim-airlineプラグインを追加する（状態行のカスタマイズ）
-	use("vim-airline/vim-airline")
-	-- vim-airline-themesプラグインを追加する（状態行のテーマ）
-	use("vim-airline/vim-airline-themes")
+	-- lualine.nvimプラグインを追加する（ステータスライン）
+	use({
+		"nvim-lualine/lualine.nvim",
+		requires = { "nvim-tree/nvim-web-devicons", opt = true },
+	})
 	-- fzfプラグインを追加する（高速なファジーファインダー）
 	use({
 		"junegunn/fzf",
@@ -54,5 +55,4 @@ require("packer").startup(function()
 	use({ "hrsh7th/nvim-cmp" })
 	use({ "hrsh7th/cmp-nvim-lsp" })
 	use({ "hrsh7th/vim-vsnip" })
-
 end)

@@ -17,7 +17,9 @@ mason_lspconfig.setup {
     'gopls',
     'lua_ls',
     'jdtls',
+    -- https://rsdlt.github.io/posts/rust-nvim-ide-guide-walkthrough-development-debug/
     'rust_analyzer',
+    'bashls',
     -- others
     'jsonls',
     'dockerls',
