@@ -1,52 +1,69 @@
 require("packer").startup(function()
-	-- packer.nvimプラグインを追加する（プラグマネージャー）
+
+	-- plugin manager
 	use("wbthomason/packer.nvim")
-	-- lualine.nvimプラグインを追加する（ステータスライン）
+
+	-- status line
 	use({
 		"nvim-lualine/lualine.nvim",
 		requires = { "nvim-tree/nvim-web-devicons", opt = true },
 	})
-	-- fzfプラグインを追加する（高速なファジーファインダー）
-	use({
-		"junegunn/fzf",
-		run = function()
-			vim.fn["fzf#install"]()
-		end,
-	})
-	-- fzf.vimプラグインを追加する（fzfのVimインターフェース）
-	use("junegunn/fzf.vim")
-	-- rust.vimプラグインを追加する（Rust言語のサポート）
-	use("rust-lang/rust.vim")
-	-- gitsigns.nvimプラグインを追加する（Gitの変更を表示する）
-	use("lewis6991/gitsigns.nvim")
-	-- vim-prettierプラグインを追加する（PrettierのVimインテグレーション）
-	use({ "prettier/vim-prettier", run = "yarn install --frozen-lockfile --production", branch = "release/0.x" })
-	-- nerdfont.vimプラグインを追加する（Nerd Fontのサポート）
-	use({ "lambdalisue/nerdfont.vim" })
-	-- fern.vimプラグインを追加する（ファイルエクスプローラー）
-	use({ "lambdalisue/fern.vim", requires = { "lambdalisue/nerdfont.vim" } })
-	-- fern-renderer-nerdfont.vimプラグインを追加する（Nerd Fontのサポート）
-	use({ "lambdalisue/fern-renderer-nerdfont.vim", requires = { "lambdalisue/fern.vim", "lambdalisue/nerdfont.vim" } })
-	-- fern-git-status.vimプラグインを追加する（Gitの状態を表示する）
-	use({ "lambdalisue/fern-git-status.vim", requires = { "lambdalisue/fern.vim" } })
-	-- nui.nvimプラグインを追加する（NeovimのUIをLuaで構築する）
-	use({ "MunifTanjim/nui.nvim", requires = { "nvim-lua/plenary.nvim" } })
-	-- plenary.nvimプラグインを追加する（Luaのユーティリティ関数）
-	use({ "nvim-lua/plenary.nvim" })
-	-- telescope.nvimプラグインを追加する（拡張性の高いファジーファインダー）
-	use({ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } })
-	-- vim-commentaryプラグインを追加する（コメントアウトを簡単にする）
+
+  -- カラーコードの色を見えやすいように表示
+  use {'norcalli/nvim-colorizer.lua',
+    config = function ()
+      require'colorizer'.setup()
+    end,
+  }
+
+  -- ファイラー
+  use {'lambdalisue/fern.vim',
+    requires = {
+      {'lambdalisue/fern-renderer-devicons.vim', 'lambdalisue/glyph-palette.vim', 'lambdalisue/fern-git-status.vim'},
+    },
+  }
+
+  -- fuzzy finder 
+  use {'nvim-telescope/telescope.nvim',
+    tag = '0.1.1',
+    -- or, branch = '0.1.x',
+    requires = { {'nvim-lua/plenary.nvim'} }
+  }
+  -- コメントアウトを効率化
+  use 'terrortylor/nvim-comment'
+
+  -- ホバーしてる単語をカレントディレクトリ内から検索
+  use {'pechorin/any-jump.vim', opt = true, cmd = {'AnyJump'}}
+
+  -- ripgrepをnvim上で実行して、検索結果をQuickfixに表示
+  use {'duane9/nvim-rg', opt = true, cmd ={'Rg'}}
+
+  -- 複数ファイルの一括置換
+  use {'thinca/vim-qfreplace', opt = true, cmd = {'Qfreplace'}}
+
+  -- プロジェクトルートをカレントディレクトリにする
+  use 'mattn/vim-findroot'
+
+  -- テーマ
+  use 'EdenEast/nightfox.nvim'
+
+  -- アイコンフォント
+  use 'ryanoasis/vim-devicons'
+
+  -- vim-commentaryプラグインを追加する（コメントアウトを簡単にする）
 	use({ "tpope/vim-commentary" })
-	-- vim-polyglotプラグインを追加する（多言語のサポート）
-	use({ "sheerun/vim-polyglot" })
+
 	-- markdown-preview.nvimプラグインを追加する（Markdownのプレビュー）
 	use({ "iamcco/markdown-preview.nvim", run = "cd app && yarn install" })
+
 	-- stylua-nvimプラグインを追加する（Luaのコードフォーマッター）
 	use({ "ckipp01/stylua-nvim", run = "cargo install stylua" })
+
 	-- 日本語化プラグインを追加する
 	use({ "vim-jp/vimdoc-ja" })
-	-- formatter
-	use({ "mhartington/formatter.nvim" })
+
+	-- vim-prettierプラグインを追加する（PrettierのVimインテグレーション）
+	use({ "prettier/vim-prettier", run = "yarn install --frozen-lockfile --production", branch = "release/0.x" })
 
 	-- Language Server Protocol
 	use({ "neovim/nvim-lspconfig" })

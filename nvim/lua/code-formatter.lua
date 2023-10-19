@@ -1,5 +1,5 @@
 -- f を押すとフォーマットをかけます
-vim.api.nvim_set_keymap("n", "ff", ":lua CodeFormat()<CR>", {})
+vim.api.nvim_set_keymap("n", "fx", ":lua CodeFormat()<CR>", {})
 
 function CodeFormat()
 	-- 拡張子がts,tsx,js,jsxの場合はprettierをかける

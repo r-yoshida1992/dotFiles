@@ -36,6 +36,29 @@ mason_lspconfig.setup_handlers({ function(server)
   lspconfig[server].setup(opt)
 end })
 
+-- LuaのLSPの設定をオーバーライドする
+-- 参考: https://github.com/cpdean/cpd.dotfiles/blob/7da9ac7f64857cb5139f6623bd8ca0eaf63ddd5f/config/nvim/lua/cpdean_config/nvim-lsp.lua#L326-L375
+lspconfig.lua_ls.setup({
+  settings = {
+    Lua = {
+      diagnostics = {
+        -- vimというグローバル変数を認識させる
+        globals = { 'vim', 'use' },
+      },
+      workspace = {
+        -- Neovimのランタイムパス内のファイルをライブラリとして利用するようする
+        library = vim.api.nvim_get_runtime_file('', true),
+        -- サードパーティライブラリのチェックを無効化する
+        checkThirdParty = false,
+      },
+      -- テレメトリ（統計情報）を無効に設定
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+})
+
 -- キーマッピング
 -- ヒントを表示
 vim.keymap.set('n', '<space>h', '<cmd>lua vim.lsp.buf.hover()<CR>')
@@ -47,7 +70,7 @@ vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
 vim.keymap.set('n', 'ge', '<cmd>lua vim.diagnostic.open_float()<CR>')
 
 -- 必要になったらコメントアウト解除して使えるようにする
-vim.keymap.set('n', 'gf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+-- vim.keymap.set('n', 'gf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 -- vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
 -- vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
 -- vim.keymap.set('n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
