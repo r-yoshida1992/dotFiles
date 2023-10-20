@@ -8,8 +8,9 @@ vim.api.nvim_set_keymap("n", "<space>q", ":bwipe<CR>", { silent = true })
 vim.api.nvim_set_keymap("n", "fe", ":Fern " .. GetGitRoot() .. " -reveal=% -drawer<CR>", {})
 -- fr を押すと置換するようにする
 vim.api.nvim_set_keymap("n", "fr", ":%s/", {})
+-- コメントアウト
 vim.api.nvim_set_keymap("n", "<space>c", "gcc", {})
 -- mpでMarkdownをプレビューする
 vim.api.nvim_set_keymap("n", "mp", ":MarkdownPreview<CR>", {})
--- ESC2回押しでハイライトを消す
-vim.api.nvim_set_keymap("n", "<Esc><Esc>", ":noh<CR>", { noremap = true })
+-- ESCでハイライトを消す
+vim.api.nvim_set_keymap("n", "<Esc>", ":noh<CR>", { noremap = true })

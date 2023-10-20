@@ -1,9 +1,13 @@
+require("plugin_settings")
 require("base")
-require("plugins")
-require("options")
 require("functions")
-require("code-formatter")
 require("keymap")
+require("plugins")
+
+
+
+require("options")
+require("code-formatter")
 require("lsp")
 require("lualine-setting")
 require("fern-setting")

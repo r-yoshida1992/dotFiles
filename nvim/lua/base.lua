@@ -1,48 +1,71 @@
--- ファイルタイプの検出、プラグインの有効化、および自動インデントを設定する。
-vim.cmd("filetype plugin indent on")
--- タブの有効化
-vim.g["airline#extensions#tabline#enabled"] = 1
--- タブの番号を表示
-vim.g["airline#extensions#tabline#buffer_idx_mode"] = 1
--- rustのコードを保存時にフォーマットする
-vim.g.rustfmt_autosave = 1
--- Prettierを使用して自動フォーマットを行う
--- vim.g.prettier#autoformat = 1
--- tsxファイルの保存時にPrettierを実行するautocmdの設定
--- vim.cmd("autocmd BufWritePost *.tsx Prettier")
--- tsファイルの保存時にPrettierを実行するautocmdの設定
--- vim.cmd("autocmd BufWritePost *.ts Prettier")
-vim.g["fern#renderer"] = "nerdfont"
-vim.g["fern#default_hidden"] = 1
--- 大文字小文字を区別せずに検索するようにする
--- vim.o.ignorecase = true
--- save時にrsファイルだった場合、rustfmtを実行する
-vim.cmd([[
-  augroup RustFmt
-    autocmd!
-    autocmd BufWritePost *.rs RustFmt
-  augroup END
-]])
+local opt = vim.opt
+-- 文字コードをUTF-8にする
+opt.encoding = "utf-8"
+-- ヘルプの言語を日本語にする
+opt.helplang = "ja"
+-- 行数表示部分の幅を固定する
+opt.numberwidth = 6
+-- ステータスラインを常に表示する
+opt.ruler = true
+-- インデント幅を2に設定
+opt.shiftwidth = 2
+-- タブ文字の幅を2に設定
+opt.tabstop = 2
+-- タブ文字をスペースに展開するオプションを有効にする
+opt.expandtab = true
+-- 自動インデントを有効にする
+opt.autoindent = true
+-- スマートインデントを有効にする
+opt.smartindent = true
+-- コマンドラインのコマンドを表示する
+opt.showcmd = true
+-- ステータスラインを常に表示
+opt.laststatus = 2
+-- マッチした括弧をハイライト表示し、1秒間表示する
+opt.showmatch.matchtime = 1
+-- バックスペースキーで特定の位置で削除可能な文字を指定
+opt.backspace = "indent,eol,start"
+-- 仮想編集モードを有効にし、カーソルを行の末尾以降に移動できるようにする
+opt.virtualedit = "onemore"
+-- スワップファイルを無効にする
+opt.swapfile = false
+-- クリップボードとして+レジスタを使用
+opt.clipboard = "unnamedplus"
+-- コマンドラインの補完メニューを有効にする
+opt.wildmenu = true
+-- コマンドラインヒストリを最大5000エントリまで保存
+opt.history = 5000
+-- テキストの折り返しを無効にする
+opt.wrap = false
+-- インクリメンタルサーチを有効にする
+opt.incsearch = true
+-- ハイライト検索を有効にする
+opt.hlsearch = true
+-- 検索時に大文字と小文字を区別せずに検索
+opt.ignorecase = true
+-- 検索パターンに大文字が含まれる場合に区別して検索
+opt.smartcase = true
+-- タブ文字、半角スペース、行末の文字を可視化する
+vim.opt.list = true
+-- 可視化した文字の設定
+vim.opt.listchars:append({ tab = '^ ', space = '·', eol = '↩︎' })
+-- Global Status Line を有効にする
+-- 画面をスプリットした時に Status LineはSplitされないようにする
+opt.laststatus = 3
 
 vim.cmd([[
-  augroup ReactFiletypes
+  augroup highlightIdegraphicSpace
     autocmd!
-    autocmd BufRead,BufNewFile *.jsx set filetype=javascriptreact
-    autocmd BufRead,BufNewFile *.tsx set filetype=typescriptreact
+    autocmd Colorscheme * highlight IdeographicSpace term=underline ctermbg=DarkGreen guibg=DarkGreen
+    autocmd VimEnter,WinEnter * match IdeographicSpace /　/
+  augroup END
+
+  " 拡張子がmdxの時は、*.mdとして扱う
+  au BufNewFile,BufRead *.mdx set filetype=markdown
+
+  " luaのformatter
+  augroup FormatAutogroup
+    autocmd!
+    autocmd BufWritePost * FormatWrite
   augroup END
 ]])
-
--- ショートカットの設定
-
-
-
--- functions
-
-vim.cmd("source $VIMRUNTIME/delmenu.vim")
-vim.cmd("source $VIMRUNTIME/menu.vim")
-
-vim.g["findroot_patterns"] = { ".git", ".svn", ".hg", ".project", ".root", "_darcs", ".bzr", ".fslckout", "_FOSSIL_" }
-vim.g["findroot_not_for_subdir"] = 0
-
-vim.cmd("command! -nargs=* -bang RG lua FZGrep(<q-args>, <bang>0)")
-
