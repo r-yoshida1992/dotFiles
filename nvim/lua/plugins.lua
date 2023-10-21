@@ -86,6 +86,20 @@ require("lazy").setup({
 	-- rust
 	"rust-lang/rust.vim",
 
+	-- chat gpt
+	{
+		"jackMort/ChatGPT.nvim",
+		event = "VeryLazy",
+		config = function()
+			require("chatgpt").setup()
+		end,
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope.nvim",
+		},
+	},
+
 	-- Language Server Protocol
 	"neovim/nvim-lspconfig",
 	"williamboman/mason.nvim",
