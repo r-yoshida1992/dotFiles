@@ -59,4 +59,5 @@ opt.updatetime = 300
 -- helpの日本語化
 opt.langmenu = "ja_JP.UTF-8"
 opt.helplang = "ja"
-
+-- colorschemeを読み込むための設定
+opt.termguicolors = true

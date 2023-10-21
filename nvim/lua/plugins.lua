@@ -51,6 +51,7 @@ require("lazy").setup({
 
 	-- テーマ
 	"EdenEast/nightfox.nvim",
+	"Alexis12119/nightly.nvim",
 
 	-- アイコンフォント
 	"ryanoasis/vim-devicons",
