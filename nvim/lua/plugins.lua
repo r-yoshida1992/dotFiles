@@ -49,8 +49,7 @@ require("lazy").setup({
 	-- プロジェクトルートをカレントディレクトリにする
 	"mattn/vim-findroot",
 
-	-- テーマ
-	"EdenEast/nightfox.nvim",
+	-- colorscheme theme
 	"Alexis12119/nightly.nvim",
 
 	-- アイコンフォント
