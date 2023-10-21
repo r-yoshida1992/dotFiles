@@ -67,6 +67,11 @@ lspconfig.lua_ls.setup({
 	},
 })
 
+lspconfig.rust_analyzer.setup({
+  cmd = {"rust_analyzer"}
+})
+
+
 -- キーマッピング
 -- ヒントを表示
 vim.keymap.set("n", "<space>h", "<cmd>lua vim.lsp.buf.hover()<CR>")
@@ -79,8 +84,10 @@ vim.keymap.set("n", "ge", "<cmd>lua vim.diagnostic.open_float()<CR>")
 
 -- LSP handlers
 -- LSPサーバーから送信される"publishDiagnostics"メッセージを処理する際に、仮想テキストとしてエラー情報を表示しないようにする
-vim.lsp.handlers["textDocument/publishDiagnostics"] =
-	vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false })
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false })
+
+-- rust format
+vim.g.rustfmt_autosave = 1
 
 --
 -- Completion settings (hrsh7th/nvim-cmp)
