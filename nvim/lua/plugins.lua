@@ -41,6 +41,7 @@ require("lazy").setup({
 	{
 		"nvim-telescope/telescope.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
+		keys = { { "ff", mode = "n" }, { "fg", mode = "n" }, { "fb", mode = "n" }, { "fh", mode = "n" } },
 	},
 
 	-- コメントアウトを効率化
@@ -62,6 +63,7 @@ require("lazy").setup({
 	{
 		"iamcco/markdown-preview.nvim",
 		run = "cd app && yarn install",
+		keys = { "mp", "c" },
 	},
 
 	-- stylua-nvimプラグインを追加する（Luaのコードフォーマッター）
@@ -73,18 +75,11 @@ require("lazy").setup({
 	-- 日本語化プラグインを追加する
 	"vim-jp/vimdoc-ja",
 
-	-- vim-prettierプラグインを追加する（PrettierのVimインテグレーション）
-	{
-		"prettier/vim-prettier",
-		run = "yarn install --frozen-lockfile --production",
-		branch = "release/0.x",
-	},
-
 	-- 各種Lintを非同期実行
 	"w0rp/ale",
 
 	-- rust
-	"rust-lang/rust.vim",
+	{ "rust-lang/rust.vim", ft = { "rs" } },
 
 	-- chat gpt
 	{
@@ -98,6 +93,7 @@ require("lazy").setup({
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope.nvim",
 		},
+		keys = { { "ch", mode = "n" } },
 	},
 
 	-- Language Server Protocol
