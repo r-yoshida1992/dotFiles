@@ -80,6 +80,7 @@ require("lazy").setup({
 
 	-- rust
 	{ "rust-lang/rust.vim", ft = { "rs" } },
+	{ "simrat39/rust-tools.nvim" },
 
 	-- chat gpt
 	{
@@ -95,6 +96,10 @@ require("lazy").setup({
 		},
 		keys = { { "ch", mode = "n" } },
 	},
+
+	-- nvim treesitter
+	-- シンタックスハイライトをリ/リッチにする
+	{ "nvim-treesitter/nvim-treesitter", run = { ":TSUpdate" } },
 
 	-- Language Server Protocol
 	"neovim/nvim-lspconfig",
