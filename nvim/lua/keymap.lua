@@ -14,3 +14,5 @@ vim.api.nvim_set_keymap("n", "<space>c", "gcc", {})
 vim.api.nvim_set_keymap("n", "mp", ":MarkdownPreview<CR>", {})
 -- ESCでハイライトを消す
 vim.api.nvim_set_keymap("n", "<Esc>", ":noh<CR>", { noremap = true })
+-- wn でpain間を移動する
+vim.api.nvim_set_keymap("n", "wn", "<C-w>w", { noremap = true })
