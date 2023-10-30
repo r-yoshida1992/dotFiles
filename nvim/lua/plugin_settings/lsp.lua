@@ -80,6 +80,10 @@ vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
 vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
 -- エラーを表示
 vim.keymap.set("n", "ge", "<cmd>lua vim.diagnostic.open_float()<CR>")
+-- コードアクションを表示
+vim.keymap.set("n", "ga", "<cmd>lua vim.lsp.buf.code_action()<CR>")
+-- コードアクションを表示
+vim.keymap.set("n", "gf", "<cmd>lua vim.lsp.buf.format()<CR>")
 
 -- LSP handlers
 -- LSPサーバーから送信される"publishDiagnostics"メッセージを処理する際に、仮想テキストとしてエラー情報を表示しないようにする
