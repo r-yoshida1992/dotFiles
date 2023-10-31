@@ -98,9 +98,6 @@ config["on_attach"] = function(client, bufnr)
 	}, bufnr)
 end
 
-local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }
-local root_dir = require("jdtls.setup").find_root(root_markers)
-
 lspconfig.jdtls.setup({
 	cmd = {
 		"/opt/homebrew/opt/openjdk@21/bin/java",
@@ -125,12 +122,13 @@ lspconfig.jdtls.setup({
 		workspace_dir,
 	},
 	root_dir = function(fname)
-		return require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }, fname)
+		local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }
+		return require("jdtls.setup").find_root(root_markers, fname)
 	end,
 	settings = {
 
 		java = {
-			home = "/Users/ivanermolaev/Library/Java/JavaVirtualMachines/temurin-18.0.1/Contents/Home/",
+			home = "/opt/homebrew/opt/openjdk@21/bin",
 			eclipse = {
 				downloadSources = true,
 			},
@@ -138,12 +136,8 @@ lspconfig.jdtls.setup({
 				updateBuildConfiguration = "interactive",
 				runtimes = {
 					{
-						name = "JavaSE-18",
-						path = "/Users/ivanermolaev/Library/Java/JavaVirtualMachines/temurin-18.0.1/Contents/Home",
-					},
-					{
-						name = "JavaSE-17",
-						path = "/Users/ivanermolaev/Library/Java/JavaVirtualMachines/temurin-17.0.4/Contents/Home",
+						name = "JavaSE-21",
+						path = "/opt/homebrew/opt/openjdk@21/bin",
 					},
 				},
 			},
