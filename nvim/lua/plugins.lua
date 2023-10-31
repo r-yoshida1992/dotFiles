@@ -82,6 +82,9 @@ require("lazy").setup({
 	{ "rust-lang/rust.vim", ft = { "rs" } },
 	{ "simrat39/rust-tools.nvim" },
 
+	-- java
+	{ "mfussenegger/nvim-jdtls" },
+
 	-- chat gpt
 	{
 		"jackMort/ChatGPT.nvim",
