@@ -1,6 +1,8 @@
 local opt = vim.opt
 -- 行番号の表示
 opt.number = true
+-- 行番号を相対的な位置で表示する
+opt.relativenumber = true
 -- タブキー押下時の幅
 opt.softtabstop = 2
 -- 文字コードをUTF-8にする
