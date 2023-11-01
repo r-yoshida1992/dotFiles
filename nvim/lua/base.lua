@@ -11,12 +11,3 @@ setvar("loaded_matchparen", 1)
 setvar("loaded_tarPlugin", 1)
 setvar("loaded_tutor_mode_plugin", 1)
 setvar("skip_loading_mswin", 1)
-
--- autocmd
-vim.cmd([[  
-  augroup LuaAutoFmt
-    autocmd!
-    " luaのフォーマット
-    autocmd BufWritePre *.lua :lua require('stylua-nvim').format_file()
-  augroup END
-]])
