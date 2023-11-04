@@ -1,11 +1,13 @@
 return {
 	"iamcco/markdown-preview.nvim",
-	run = "cd app && yarn install",
-	keys = { "mp", "n" },
-	ft = { "md" },
-	event = { "VimEnter" },
+	cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+	build = "cd app && yarn install",
+	init = function()
+		vim.g.mkdp_filetypes = { "markdown" }
+	end,
 	config = function()
 		-- mpでMarkdownをプレビューする
 		vim.api.nvim_set_keymap("n", "mp", ":MarkdownPreview<CR>", {})
 	end,
+	ft = { "markdown" },
 }

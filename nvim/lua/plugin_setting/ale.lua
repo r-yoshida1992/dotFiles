@@ -1,6 +1,7 @@
 return {
 	-- 各種Lintを非同期実行
 	"w0rp/ale",
+	keys = { { "w", mode = "n" } },
 	config = function()
 		vim.cmd([[
 				" 言語ごとに有効にするLintツールを設定する

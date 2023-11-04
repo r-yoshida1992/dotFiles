@@ -1,6 +1,6 @@
+require("base")
 require("options")
 require("plugins")
-require("base")
 require("functions")
 require("keymap")
 require("terminal")

@@ -45,5 +45,11 @@ return {
 
 		-- helpを開く
 		keyset("n", "fh", builtin.help_tags, {})
+
+		-- select git branch
+		keyset("n", "<leader>gb", builtin.git_branches, {})
+
+		-- show git status
+		keyset("n", "<leader>gs", builtin.git_status, {})
 	end,
 }

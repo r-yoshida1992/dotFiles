@@ -11,3 +11,6 @@ setvar("loaded_matchparen", 1)
 setvar("loaded_tarPlugin", 1)
 setvar("loaded_tutor_mode_plugin", 1)
 setvar("skip_loading_mswin", 1)
+
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "

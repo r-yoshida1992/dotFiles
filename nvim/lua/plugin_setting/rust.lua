@@ -1,3 +1,3 @@
 return {
-	{ "rust-lang/rust.vim", ft = { "rs" } },
+	{ "rust-lang/rust.vim", event = { "BufReadPre", "BufNewFile" }, ft = { "rs" } },
 }

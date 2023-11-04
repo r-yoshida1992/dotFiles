@@ -1,4 +1,5 @@
 return {
+	-- fuzzy finder
 	"lambdalisue/fern.vim",
 	keys = { { "fe", "n" } },
 	dependencies = {

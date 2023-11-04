@@ -2,7 +2,7 @@ return {
 	-- シンタックスハイライトをリッチにする
 	"nvim-treesitter/nvim-treesitter",
 	run = { ":TSUpdate" },
-	event = { "VimEnter" },
+	event = { "BufReadPre" },
 	config = function()
 		require("nvim-treesitter.configs").setup({
 			ensure_installed = { "lua", "rust", "toml" },
