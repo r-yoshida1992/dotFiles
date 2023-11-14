@@ -14,3 +14,10 @@ setvar("skip_loading_mswin", 1)
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+
+vim.cmd([[
+  augroup vimrc-checktime
+  autocmd!
+  autocmd WinEnter * checktime
+  augroup END
+]])

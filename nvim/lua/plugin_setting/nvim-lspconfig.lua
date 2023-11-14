@@ -23,6 +23,7 @@ return {
 				"gopls",
 				"lua_ls",
 				"jdtls",
+				"sqlls",
 				-- https://rsdlt.github.io/posts/rust-nvim-ide-guide-walkthrough-development-debug/
 				"rust_analyzer",
 				"bashls",
@@ -89,7 +90,7 @@ return {
 			vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false })
 
 		-- rust format
-		vim.g.rustfmt_autosave = 1
+		-- vim.g.rustfmt_autosave = 1
 
 		--
 		-- Completion settings (hrsh7th/nvim-cmp)

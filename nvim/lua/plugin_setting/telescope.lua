@@ -12,11 +12,14 @@ return {
 		require("telescope").setup({
 			defaults = {
 				color_devicons = true,
-				file_ignore_patterns = { ".git/" },
+				file_ignore_patterns = { ".git/", "volumes/" },
 				selection_caret = "  ",
 				prompt_prefix = "   ",
 			},
 			pickers = {
+				find_files = {
+					hidden = true,
+				},
 				live_grep = {
 					additional_args = function(opts)
 						return { "--hidden" }

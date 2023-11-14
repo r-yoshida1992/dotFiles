@@ -9,4 +9,9 @@ vim.api.nvim_set_keymap("n", "fr", ":%s/", {})
 -- ESCでハイライトを消す
 vim.api.nvim_set_keymap("n", "<Esc>", ":noh<CR>", { noremap = true })
 -- wn でpain間を移動する
-vim.api.nvim_set_keymap("n", "wn", "<C-w>w", { noremap = true })
+vim.api.nvim_set_keymap("n", "<space><space>", "<C-w>w", { noremap = true })
+-- normalモードで;を:にマッピングする
+vim.api.nvim_set_keymap("n", ";", ":", { noremap = true })
+-- react用のコメントアウト
+vim.api.nvim_set_keymap("n", "<space>rc", ":s/</{\\/*</<CR>:s/$/*\\/}/<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<space>re", ":s/{\\/\\*//<CR>:s/\\*\\/}//<CR>", { noremap = true })
