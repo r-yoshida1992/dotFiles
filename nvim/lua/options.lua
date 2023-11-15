@@ -8,7 +8,7 @@ opt.softtabstop = 2
 -- 文字コードをUTF-8にする
 opt.encoding = "utf-8"
 -- 行数表示部分の幅を固定する
-opt.numberwidth = 6
+opt.numberwidth = 5
 -- ステータスラインを常に表示する
 opt.ruler = true
 -- インデント幅を2に設定
@@ -45,8 +45,6 @@ opt.wrap = false
 opt.incsearch = true
 -- ハイライト検索を有効にする
 opt.hlsearch = true
--- 検索時に大文字と小文字を区別せずに検索
-opt.ignorecase = true
 -- 検索パターンに大文字が含まれる場合に区別して検索
 opt.smartcase = true
 -- Global Status Line を有効にする
@@ -63,3 +61,6 @@ opt.langmenu = "ja_JP.UTF-8"
 opt.helplang = "ja"
 -- colorschemeを読み込むための設定
 opt.termguicolors = true
+-- 改行、タブ、行末の空白を可視化
+opt.list = true
+vim.opt.listchars = "tab:^ ,trail:·,eol:↵"
