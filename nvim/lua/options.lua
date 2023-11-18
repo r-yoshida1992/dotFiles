@@ -63,4 +63,6 @@ opt.helplang = "ja"
 opt.termguicolors = true
 -- 改行、タブ、行末の空白を可視化
 opt.list = true
-vim.opt.listchars = "tab:^ ,trail:·,eol:↵"
+-- vim.opt.listchars = "tab:^ , trail:·, eol:↵, nbsp:-"
+opt.listchars = { tab = "^ ", trail = "·", eol = "↵", nbsp = "·" }
+-- opt.listchars = { tab = '>>', trail = '-', nbsp = '+' }
