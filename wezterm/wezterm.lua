@@ -1,14 +1,37 @@
 local wezterm = require("wezterm")
 local config = {}
 
-config.color_scheme = "UnderTheSea"
-config.window_background_opacity = 0.9
-config.font_size = 13.0
+-- config.color_scheme = 'UnderTheSea'
+-- config.color_scheme = 'NightLion v2'
+-- config.color_scheme = 'Neon'
+-- config.color_scheme = "UltraViolent"
+config.color_scheme = "Tokyo Night Moon"
+-- config.color_scheme = "Night Owl (Gogh)"
+
+-- config.font = wezterm.font("FiraCode Nerd Font", { weight = "Bold", italic = false })
+-- config.font = wezterm.font("Firge35Nerd", { weight = "Bold", italic = false })
+config.font = wezterm.font_with_fallback({ { family = "HackGen", weight = "Bold" }, "Firge35Nerd" })
+-- config.font = wezterm.font_with_fallback({ { family = "Cica", weight = "Bold" }, "Firge35Nerd" })
+
+-- config.window_background_opacity = 0.7
+-- config.window_background_opacity = 0.9
+config.window_background_opacity = 1
+
+-- config.font = wezterm.font("HackGen", { weight = "Bold" })
+config.line_height = 1.1
+
+config.font_size = 15
 -- config.font = wezterm.font('Ricty for Powerline', { weight = 'regular', italic = false })
-config.window_background_gradient = {
-	orientation = "Vertical",
-	colors = { "#000000", "#002222", "#003344" },
-}
+-- config.window_background_gradient = {
+--  orientation = 'Vertical',
+--  colors = {'#000000', '#002222', '#003344'},
+-- }
+-- config.window_background_gradient = {
+--     orientation = "Vertical",
+--     interpolation = "Linear",
+--     blend = "Rgb",
+--     colors = {"#202020", "#000000"}
+-- }
 
 -- config.colors = {
 --   cursor_fg = '#000000',
@@ -16,6 +39,10 @@ config.window_background_gradient = {
 --   -- base setting
 --   foreground = '#00ff00',
 --   background = '#000000',
+-- }
+
+-- config.colors = {
+--     cursor_bg = '#0fcc0f'
 -- }
 
 wezterm.on("update-right-status", function(window, pane)
@@ -61,13 +88,7 @@ wezterm.on("update-right-status", function(window, pane)
 	local SOLID_LEFT_ARROW = utf8.char(0xe0b2)
 
 	-- Color palette for the backgrounds of each cell
-	local colors = {
-		"#3c1361",
-		"#52307c",
-		"#663a82",
-		"#7c5295",
-		"#b491c8",
-	}
+	local colors = { "#3c1361", "#52307c", "#663a82", "#7c5295", "#b491c8" }
 
 	-- Foreground color for the text across the fade
 	local text_fg = "#c0c0c0"
@@ -80,12 +101,28 @@ wezterm.on("update-right-status", function(window, pane)
 	-- Translate a cell into elements
 	function push(text, is_last)
 		local cell_no = num_cells + 1
-		table.insert(elements, { Foreground = { Color = text_fg } })
-		table.insert(elements, { Background = { Color = colors[cell_no] } })
-		table.insert(elements, { Text = " " .. text .. " " })
+		table.insert(elements, {
+			Foreground = {
+				Color = text_fg,
+			},
+		})
+		table.insert(elements, {
+			Background = {
+				Color = colors[cell_no],
+			},
+		})
+		table.insert(elements, {
+			Text = " " .. text .. " ",
+		})
 		if not is_last then
-			table.insert(elements, { Foreground = { Color = colors[cell_no + 1] } })
-			table.insert(elements, { Text = SOLID_LEFT_ARROW })
+			table.insert(elements, {
+				Foreground = {
+					Color = colors[cell_no + 1],
+				},
+			})
+			table.insert(elements, {
+				Text = SOLID_LEFT_ARROW,
+			})
 		end
 		num_cells = num_cells + 1
 	end

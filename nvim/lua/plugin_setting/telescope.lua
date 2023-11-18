@@ -1,10 +1,11 @@
 return {
 	"nvim-telescope/telescope.nvim",
-	cmd = {
-		"Telescope",
-	},
-	event = { "BufReadPre", "BufNewFile" },
-	keys = { { "ff", mode = "n" }, { "fg", mode = "n" }, { "fb", mode = "n" }, { "fh", mode = "n" } },
+	-- cmd = {
+	-- 	"Telescope",
+	-- },
+	-- event = { "BufReadPre", "BufNewFile" },
+	-- keys = { { "ff", mode = "n" }, { "fg", mode = "n" }, { "fb", mode = "n" }, { "fh", mode = "n" } },
+	event = { "VimEnter" },
 	dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
 	config = function()
 		-- [[ Configure Telescope ]]
