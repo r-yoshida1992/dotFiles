@@ -1,6 +1,6 @@
 return {
 	"r-yoshida1992/nightly.nvim",
-	event = { "VimEnter" },
+	event = { "VeryLazy" },
 	config = function()
 		require("nightly").setup({
 			transparent = false,

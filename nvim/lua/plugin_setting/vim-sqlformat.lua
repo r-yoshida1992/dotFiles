@@ -1,4 +1,4 @@
 return {
 	"mpyatishev/vim-sqlformat",
-	event = { "VimEnter" },
+	event = { "VeryLazy" },
 }

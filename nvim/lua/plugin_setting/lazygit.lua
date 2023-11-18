@@ -1,7 +1,7 @@
 return {
 	"kdheepak/lazygit.nvim",
-	event = { "VimEnter" },
+	event = { "VeryLazy" },
 	config = function()
-		vim.keymap.set("n", "gv", ":LazyGit<CR>")
+		vim.keymap.set("n", "<space>gv", ":LazyGit<CR>")
 	end,
 }

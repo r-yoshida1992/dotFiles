@@ -1,6 +1,6 @@
 return {
 	"nvim-lualine/lualine.nvim",
-	event = { "VimEnter" },
+	event = { "VeryLazy" },
 	dependencies = { "r-yoshida1992/nightly.nvim" },
 	config = function()
 		require("lualine").setup({

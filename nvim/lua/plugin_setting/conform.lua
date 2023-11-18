@@ -1,6 +1,6 @@
 return {
 	"stevearc/conform.nvim",
-	event = { "VimEnter" },
+	event = { "VeryLazy" },
 	dependencies = { "ckipp01/stylua-nvim" },
 	config = function()
 		require("conform").setup({

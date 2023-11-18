@@ -5,7 +5,7 @@ return {
 	-- },
 	-- event = { "BufReadPre", "BufNewFile" },
 	-- keys = { { "ff", mode = "n" }, { "fg", mode = "n" }, { "fb", mode = "n" }, { "fh", mode = "n" } },
-	event = { "VimEnter" },
+	event = { "VeryLazy" },
 	dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
 	config = function()
 		-- [[ Configure Telescope ]]
