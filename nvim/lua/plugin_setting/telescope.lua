@@ -41,8 +41,16 @@ return {
 		-- ファイル名で検索
 		keyset("n", "ff", builtin.find_files, {})
 
+		keyset("n", "f-", function()
+			builtin.find_files({ search_dirs = { "~/Documents/GitHub" } })
+		end, {})
+
 		-- ファイルに含まれる文字列で検索
 		keyset("n", "fg", builtin.live_grep, {})
+
+		keyset("n", "f~", function()
+			builtin.live_grep({ search_dirs = { "~/Documents/GitHub" } })
+		end, {})
 
 		-- neovimで開いているバッファで検索
 		keyset("n", "fb", builtin.buffers, {})

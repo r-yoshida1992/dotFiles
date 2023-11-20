@@ -1,6 +1,7 @@
 return {
 	"r-yoshida1992/nightly.nvim",
-	event = { "VeryLazy" },
+	-- event = { "VeryLazy" },
+	lazy = false,
 	config = function()
 		require("nightly").setup({
 			transparent = false,
