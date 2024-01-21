@@ -10,9 +10,17 @@ return {
 				javascriptreact = { "prettier" },
 				typescript = { "prettier" },
 				typescriptreact = { "prettier" },
+				css = { "prettier" },
+				html = { "prettier" },
 				rust = { "rustfmt" },
 				sql = { "sqlfmt" },
 			},
+		})
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			pattern = "*.xml",
+			callback = function()
+				vim.cmd(":%!xmllint --format -")
+			end,
 		})
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			pattern = "*",
