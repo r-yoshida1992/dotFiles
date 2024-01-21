@@ -1,6 +1,7 @@
 return {
 	-- fuzzy finder
 	"lambdalisue/fern.vim",
+	keys = { { "fe" } },
 	event = "VeryLazy",
 	dependencies = {
 		"lambdalisue/fern-renderer-devicons.vim",
@@ -9,8 +10,13 @@ return {
 		"ryanoasis/vim-devicons",
 	},
 	config = function()
+		function OpenFern()
+			vim.cmd(":cd " .. GetGitRoot())
+			vim.cmd(":Fern . -reveal=% -drawer")
+		end
+
 		-- fe を押すとサイドにファイルツリーを表示します
-		vim.api.nvim_set_keymap("n", "fe", ":Fern . -reveal=% -drawer<CR>", { noremap = true, silent = true })
+		vim.api.nvim_set_keymap("n", "fe", ":lua OpenFern()<CR>", {})
 
 		vim.cmd([[
 			let g:fern#renderer = 'devicons'
