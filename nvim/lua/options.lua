@@ -40,7 +40,7 @@ opt.wildmenu = true
 -- コマンドラインヒストリを最大5000エントリまで保存
 opt.history = 5000
 -- テキストの折り返しを無効にする
-opt.wrap = false
+-- opt.wrap = false
 -- インクリメンタルサーチを有効にする
 opt.incsearch = true
 -- ハイライト検索を有効にする
@@ -66,3 +66,4 @@ opt.list = true
 -- vim.opt.listchars = "tab:^ , trail:·, eol:↵, nbsp:-"
 opt.listchars = { tab = "^ ", trail = "·", eol = "↵", nbsp = "·" }
 -- opt.listchars = { tab = '>>', trail = '-', nbsp = '+' }
+opt.completeopt = "menuone,noinsert"
