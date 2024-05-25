@@ -14,6 +14,7 @@ return {
 				html = { "prettier" },
 				rust = { "rustfmt" },
 				sql = { "sqlfmt" },
+				cs = { "csharpier" },
 			},
 		})
 		vim.api.nvim_create_autocmd("BufWritePre", {

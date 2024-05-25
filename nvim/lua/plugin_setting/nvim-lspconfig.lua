@@ -12,6 +12,9 @@ return {
 		local lspconfig_status, lspconfig = pcall(require, "lspconfig")
 		local cmp_nvim_lsp_status, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 		local cmp_status, cmp = pcall(require, "cmp")
+		local on_attach = function(_, bufnr)
+			vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr(#{timeout_ms:250})")
+		end
 		mason.setup()
 
 		mason_lspconfig.setup({
@@ -31,13 +34,20 @@ return {
 				"jsonls",
 				"dockerls",
 				"yamlls",
+				"csharp_ls",
 			},
 			automatic_installation = true,
 		})
 		mason_lspconfig.setup_handlers({
 			function(server)
 				local opt = {
+					on_attach = on_attach,
 					capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+					settings = {
+						["omnisharp"] = {
+							useGlobalMono = "always",
+						},
+					},
 				}
 				lspconfig[server].setup(opt)
 			end,
@@ -68,6 +78,17 @@ return {
 
 		lspconfig.rust_analyzer.setup({
 			cmd = { "rust_analyzer" },
+		})
+
+		-- cmp_nvim_lspの設定
+		local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+		-- lspconfigの設定
+		lspconfig.csharp_ls.setup({
+			capabilities = capabilities,
+			root_dir = function(fname)
+				return require("lspconfig").util.root_pattern("*.sln", "*.csproj", ".git")(fname) or vim.fn.getcwd()
+			end,
 		})
 
 		-- キーマッピング
