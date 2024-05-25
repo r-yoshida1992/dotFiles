@@ -4,7 +4,7 @@ vim.api.nvim_set_keymap("n", "<S-j>", ":bp<CR>", {})
 vim.api.nvim_set_keymap("n", "<S-k>", ":bn<CR>", {})
 -- <space>q を押すと現在のタブを閉じます
 vim.api.nvim_set_keymap("n", "<space>q", ":bwipe<CR>", { silent = true })
--- fr を押すと置換するようにする
+-- fr を押すとファイル内置換するようにする
 vim.api.nvim_set_keymap("n", "fr", ":%s/", {})
 -- ESCでハイライトを消す
 vim.api.nvim_set_keymap("n", "<Esc>", ":noh<CR>", { noremap = true })
@@ -13,9 +13,12 @@ vim.api.nvim_set_keymap("n", "<space>w", "<C-w>w", { noremap = true })
 -- normalモードで;を:にマッピングする
 vim.api.nvim_set_keymap("n", ";", ":", { noremap = true })
 vim.api.nvim_set_keymap("v", ";", ":", { noremap = true })
--- react用のコメントアウト
-vim.api.nvim_set_keymap("n", "<space>rc", ":s/</{\\/*</<CR>:s/$/*\\/}/<CR>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<space>re", ":s/{\\/\\*//<CR>:s/\\*\\/}//<CR>", { noremap = true })
-
+-- backspaceを入力可能にする
 vim.api.nvim_set_keymap("i", "¥", "\\", {})
 vim.api.nvim_set_keymap("c", "¥", "\\", {})
+-- 現在のパスを出力する
+vim.api.nvim_set_keymap("n", "<leader>gr", ":r !pwd<CR>", { noremap = true, silent = true })
+-- Git Grepを実行しその結果を出力する
+vim.api.nvim_set_keymap("n", "<leader>gg", ":lua GitGrepInput()<CR>", { noremap = true, silent = true })
+-- スネークケースとキャメルケースを相互変換する
+vim.api.nvim_set_keymap("v", "<leader>sc", ":lua ToggleCase()<CR>", { noremap = true, silent = true })
