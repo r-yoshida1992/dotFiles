@@ -10,11 +10,13 @@ return {
 				javascriptreact = { "prettier" },
 				typescript = { "prettier" },
 				typescriptreact = { "prettier" },
+				json = { "prettier" },
 				css = { "prettier" },
 				html = { "prettier" },
 				rust = { "rustfmt" },
 				sql = { "sqlfmt" },
 				cs = { "csharpier" },
+				java = { "google-java-format" },
 			},
 		})
 		vim.api.nvim_create_autocmd("BufWritePre", {

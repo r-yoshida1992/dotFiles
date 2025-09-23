@@ -1,10 +1,5 @@
 return {
 	"nvim-telescope/telescope.nvim",
-	-- cmd = {
-	-- 	"Telescope",
-	-- },
-	-- event = { "BufReadPre", "BufNewFile" },
-	-- keys = { { "ff", mode = "n" }, { "fg", mode = "n" }, { "fb", mode = "n" }, { "fh", mode = "n" } },
 	event = { "VeryLazy" },
 	dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
 	config = function()
@@ -14,7 +9,17 @@ return {
 			defaults = {
 				color_devicons = true,
 				-- file_ignore_patterns = { ".git/", "volumes/" },
-				file_ignore_patterns = { ".git/", "volumes/" },
+				file_ignore_patterns = {
+					".git/",
+					"volumes/",
+					".meta",
+					".png",
+					".asset",
+					".anim",
+					".unity",
+					-- ".controller",
+					".prefab",
+				},
 				selection_caret = "  ",
 				prompt_prefix = "   ",
 			},

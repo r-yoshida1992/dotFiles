@@ -80,6 +80,13 @@ return {
 			cmd = { "rust_analyzer" },
 		})
 
+		lspconfig.jdtls.setup({
+			cmd = { "jdtls" },
+			on_attach = on_attach,
+			capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+			root_dir = require("lspconfig").util.root_pattern("pom.xml", "gradle.build", ".git"),
+		})
+
 		-- cmp_nvim_lspの設定
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
