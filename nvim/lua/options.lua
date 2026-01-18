@@ -65,3 +65,6 @@ opt.termguicolors = true
 opt.list = true
 opt.listchars = { tab = "│ ", trail = "·", eol = "↵", nbsp = "·" }
 opt.completeopt = "menuone,noinsert"
+
+opt.cursorline = true
+opt.cursorcolumn = true
