@@ -19,45 +19,110 @@ return {
 				vim.diagnostic.enable(false, { bufnr = bufnr })
 			end
 		end
-		local jump_to_java_source = function(class_name)
-			local fqcn = class_name
-			if not fqcn:find("%.") then
-				for _, line in ipairs(vim.api.nvim_buf_get_lines(0, 0, -1, false)) do
-					local imported = line:match("^%s*import%s+([%w%.]+%." .. vim.pesc(fqcn) .. ")%s*;")
-					if imported then
-						fqcn = imported
-						break
-					end
-				end
-			end
-			if not fqcn:find("%.") then
-				fqcn = "java.lang." .. fqcn
+		local source_archives
+		local java_source_archives = function()
+			if source_archives then
+				return source_archives
 			end
 
+			source_archives = {}
 			local java_home_for_source = vim.fn.trim(vim.fn.system("/usr/libexec/java_home -v 25"))
 			if vim.v.shell_error ~= 0 or java_home_for_source == "" then
 				java_home_for_source = vim.fn.trim(vim.fn.system("/usr/libexec/java_home"))
 			end
 
 			local src_zip = java_home_for_source .. "/lib/src.zip"
-			if vim.fn.filereadable(src_zip) == 0 then
-				return false
+			if vim.fn.filereadable(src_zip) == 1 then
+				table.insert(source_archives, src_zip)
 			end
 
-			local relative_path = fqcn:gsub("%.", "/") .. ".java"
-			local entries = vim.fn.systemlist({ "unzip", "-Z1", src_zip })
+			local source_roots = {}
+			for _, root in ipairs({
+				vim.fn.expand("~/.gradle/caches/modules-2/files-2.1"),
+				vim.fn.expand("~/.m2/repository"),
+			}) do
+				if vim.fn.isdirectory(root) == 1 then
+					table.insert(source_roots, root)
+				end
+			end
+			if #source_roots == 0 then
+				return source_archives
+			end
+
+			local find_args = { "find" }
+			vim.list_extend(find_args, source_roots)
+			vim.list_extend(find_args, { "-type", "f", "-name", "*-sources.jar" })
+			local source_jars = vim.fn.systemlist(find_args)
+			for _, jar in ipairs(source_jars) do
+				if vim.fn.filereadable(jar) == 1 then
+					table.insert(source_archives, jar)
+				end
+			end
+
+			return source_archives
+		end
+		local java_fqcn_from_hover = function()
+			local params = vim.lsp.util.make_position_params(0, "utf-16")
+			local responses = vim.lsp.buf_request_sync(0, "textDocument/hover", params, 1000)
+			for _, response in pairs(responses or {}) do
+				local contents = response.result and response.result.contents
+				if type(contents) == "table" then
+					for _, item in ipairs(contents) do
+						if type(item) == "table" and item.language == "java" and type(item.value) == "string" then
+							local fqcn = item.value:match("([%w_]+%.[%w_%.]+)")
+							if fqcn then
+								return fqcn
+							end
+						end
+					end
+				end
+			end
+		end
+		local java_candidate_fqcns = function(class_name)
+			if class_name:find("%.") then
+				return { class_name }
+			end
+
+			local candidates = {}
+			for _, line in ipairs(vim.api.nvim_buf_get_lines(0, 0, -1, false)) do
+				local imported = line:match("^%s*import%s+([%w%.]+%." .. vim.pesc(class_name) .. ")%s*;")
+				if imported then
+					table.insert(candidates, imported)
+				end
+
+				local wildcard_import = line:match("^%s*import%s+([%w%.]+)%.%*%s*;")
+				if wildcard_import then
+					table.insert(candidates, wildcard_import .. "." .. class_name)
+				end
+			end
+			table.insert(candidates, "java.lang." .. class_name)
+			return candidates
+		end
+		local jump_to_java_source = function(class_name)
+			local fqcn
 			local zip_entry
-			for _, entry in ipairs(entries) do
-				if entry:sub(-#relative_path) == relative_path then
-					zip_entry = entry
+			local archive
+
+			for _, candidate in ipairs(java_candidate_fqcns(class_name)) do
+				local relative_path = candidate:gsub("%.", "/") .. ".java"
+				for _, source_archive in ipairs(java_source_archives()) do
+					local entries = vim.fn.systemlist({ "unzip", "-Z1", source_archive, "*" .. relative_path })
+					if vim.v.shell_error == 0 and #entries > 0 then
+						fqcn = candidate
+						zip_entry = entries[1]
+						archive = source_archive
+						break
+					end
+				end
+				if archive then
 					break
 				end
 			end
-			if not zip_entry then
+			if not archive then
 				return false
 			end
 
-			local source = vim.fn.systemlist({ "unzip", "-p", src_zip, zip_entry })
+			local source = vim.fn.systemlist({ "unzip", "-p", archive, zip_entry })
 			if vim.v.shell_error ~= 0 or #source == 0 then
 				return false
 			end
@@ -90,8 +155,14 @@ return {
 				end
 			end
 
-			if vim.bo.filetype == "java" and jump_to_java_source(vim.fn.expand("<cword>")) then
-				return
+			if vim.bo.filetype == "java" then
+				local fqcn = java_fqcn_from_hover()
+				if fqcn and jump_to_java_source(fqcn) then
+					return
+				end
+				if jump_to_java_source(vim.fn.expand("<cword>")) then
+					return
+				end
 			end
 
 			vim.notify("definition not found", vim.log.levels.WARN)

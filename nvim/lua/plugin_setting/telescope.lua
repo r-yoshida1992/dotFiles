@@ -14,6 +14,7 @@ return {
 					"node_modules/",
 					"build/",
 					".gradle/",
+					"bin/",
 					"volumes/",
 					".meta",
 					".png",
@@ -45,6 +46,8 @@ return {
 							"!core/api/build/**",
 							"--glob",
 							"!core/api/.gradle/**",
+							"--glob",
+							"!**/bin/**",
 						}
 					end,
 				},
