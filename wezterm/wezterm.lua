@@ -1,37 +1,68 @@
 local wezterm = require("wezterm")
 local config = {}
 
--- config.color_scheme = 'UnderTheSea'
--- config.color_scheme = 'NightLion v2'
--- config.color_scheme = 'Neon'
--- config.color_scheme = "UltraViolent"
-config.color_scheme = "Tokyo Night Moon"
--- config.color_scheme = "Night Owl (Gogh)"
+-- カラースキームは全体のANSIカラーや標準配色のベースになる。
+config.color_scheme = "UltraViolent"
 
--- config.font = wezterm.font("FiraCode Nerd Font", { weight = "Bold", italic = false })
--- config.font = wezterm.font("Firge35Nerd", { weight = "Bold", italic = false })
-config.font = wezterm.font_with_fallback({ { family = "HackGen", weight = "Bold" }, "Firge35Nerd" })
--- config.font = wezterm.font_with_fallback({ { family = "Cica", weight = "Bold" }, "Firge35Nerd" })
+-- HackGenを優先して使う。Nerd Font系の記号や日本語表示が崩れにくい。
+config.font = wezterm.font_with_fallback({ { family = "HackGen", weight = "Bold" } })
 
--- config.window_background_opacity = 0.7
--- config.window_background_opacity = 0.9
-config.window_background_opacity = 1
-
--- config.font = wezterm.font("HackGen", { weight = "Bold" })
+-- 行間。少し広げると日本語やPowerline記号が詰まりにくい。
 config.line_height = 1.1
 
 config.font_size = 15
--- config.font = wezterm.font('Ricty for Powerline', { weight = 'regular', italic = false })
--- config.window_background_gradient = {
---  orientation = 'Vertical',
---  colors = {'#000000', '#002222', '#003344'},
--- }
--- config.window_background_gradient = {
---     orientation = "Vertical",
---     interpolation = "Linear",
---     blend = "Rgb",
---     colors = {"#202020", "#000000"}
--- }
+
+-- ウィンドウ背景の縦グラデーション。
+config.window_background_gradient = {
+	orientation = "Vertical",
+	interpolation = "Linear",
+	blend = "Rgb",
+	colors = { "#021b22", "#011318", "#050509" },
+}
+
+-- タブバーの色。背景色、アクティブタブ、非アクティブタブ、ホバー時を個別に指定する。
+config.colors = {
+	tab_bar = {
+		background = "#011318",
+		active_tab = {
+			bg_color = "#021b22",
+			fg_color = "#d6f3f5",
+			intensity = "Bold",
+		},
+		inactive_tab = {
+			bg_color = "#050509",
+			fg_color = "#7f9ca3",
+		},
+		inactive_tab_hover = {
+			bg_color = "#032b34",
+			fg_color = "#d6f3f5",
+		},
+		new_tab = {
+			bg_color = "#050509",
+			fg_color = "#7f9ca3",
+		},
+		new_tab_hover = {
+			bg_color = "#021b22",
+			fg_color = "#d6f3f5",
+		},
+	},
+}
+
+-- macOSのタイトルバー周辺の色。
+config.window_frame = {
+	active_titlebar_bg = "#021b22",
+	inactive_titlebar_bg = "#021b22",
+	active_titlebar_fg = "#d6f3f5",
+	inactive_titlebar_fg = "#7f9ca3",
+}
+
+-- WezTerm内蔵ボタンを使いつつ、ウィンドウリサイズは有効にする。
+config.window_decorations = "INTEGRATED_BUTTONS | RESIZE"
+
+-- macOSのタイトルバー色を背景色に合わせるための環境変数。
+config.set_environment_variables = {
+	MACOS_USE_BACKGROUND_COLOR_AS_TITLEBAR_COLOR = "1",
+}
 
 -- config.colors = {
 --   cursor_fg = '#000000',
@@ -45,7 +76,15 @@ config.font_size = 15
 --     cursor_bg = '#0fcc0f'
 -- }
 
+-- 右側ステータスバーを更新するイベント。
+-- 現在ディレクトリ、ホスト名、時刻、バッテリーをPowerline風に表示する。
 wezterm.on("update-right-status", function(window, pane)
+	local overrides = window:get_config_overrides()
+	if overrides and overrides.window_background_gradient then
+		overrides.window_background_gradient = nil
+		window:set_config_overrides(overrides)
+	end
+
 	-- Each element holds the text for a cell in a "powerline" style << fade
 	local cells = {}
 
@@ -134,5 +173,48 @@ wezterm.on("update-right-status", function(window, pane)
 
 	window:set_right_status(wezterm.format(elements))
 end)
+
+-- システムベル音を有効化（Claude Codeのタスク完了通知用）
+config.audible_bell = "SystemBeep"
+
+-- キーバインド。
+-- Ctrl+\ / Ctrl+- でペイン分割、Ctrl+h/j/k/l でペイン移動、Shift+Enterで改行を送信する。
+config.keys = {
+	{
+		key = "\\",
+		mods = "CTRL",
+		action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
+	},
+	{
+		key = "-",
+		mods = "CTRL",
+		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
+	},
+	{
+		key = "h",
+		mods = "CTRL",
+		action = wezterm.action.ActivatePaneDirection("Left"),
+	},
+	{
+		key = "j",
+		mods = "CTRL",
+		action = wezterm.action.ActivatePaneDirection("Down"),
+	},
+	{
+		key = "k",
+		mods = "CTRL",
+		action = wezterm.action.ActivatePaneDirection("Up"),
+	},
+	{
+		key = "l",
+		mods = "CTRL",
+		action = wezterm.action.ActivatePaneDirection("Right"),
+	},
+	{
+		key = "Enter",
+		mods = "SHIFT",
+		action = wezterm.action.SendString("\n"),
+	},
+}
 
 return config

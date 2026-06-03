@@ -11,6 +11,9 @@ return {
 				-- file_ignore_patterns = { ".git/", "volumes/" },
 				file_ignore_patterns = {
 					".git/",
+					"node_modules/",
+					"build/",
+					".gradle/",
 					"volumes/",
 					".meta",
 					".png",
@@ -22,14 +25,27 @@ return {
 				},
 				selection_caret = "  ",
 				prompt_prefix = "   ",
+				preview = {
+					treesitter = false,
+				},
 			},
 			pickers = {
 				find_files = {
 					hidden = true,
+					no_ignore = true,
 				},
 				live_grep = {
 					additional_args = function(opts)
-						return { "--hidden" }
+						return {
+							"--hidden",
+							"--no-ignore",
+							"--glob",
+							"!front/node_modules/**",
+							"--glob",
+							"!core/api/build/**",
+							"--glob",
+							"!core/api/.gradle/**",
+						}
 					end,
 				},
 			},
