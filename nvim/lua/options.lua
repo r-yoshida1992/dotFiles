@@ -68,3 +68,22 @@ opt.completeopt = "menuone,noinsert"
 
 opt.cursorline = true
 opt.cursorcolumn = true
+
+-- WezTerm の背景グラデーションを透過させる
+-- colorscheme が上書きするので ColorScheme イベントで毎回適用する
+local function apply_transparent_bg()
+  local groups = {
+    "Normal", "NormalNC",
+    "SignColumn", "LineNr", "CursorLineNr",
+    "FoldColumn", "EndOfBuffer",
+  }
+  for _, g in ipairs(groups) do
+    vim.cmd(string.format("hi %s guibg=NONE ctermbg=NONE", g))
+  end
+end
+
+apply_transparent_bg()
+vim.api.nvim_create_autocmd("ColorScheme", {
+  pattern  = "*",
+  callback = apply_transparent_bg,
+})
